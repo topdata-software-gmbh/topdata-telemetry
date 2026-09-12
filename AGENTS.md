@@ -2,6 +2,8 @@
 
 Go (1.21+) monitoring agent for Shopware 6: tails daily shop logs, reports disk usage, exposes Prometheus `/metrics` on `:9144` with Basic Auth. Replaces a legacy PHP agent; runs as a single systemd service.
 
+**Design invariant — strictly read-only.** This agent is the telemetry plane: it observes and reports, and never writes to shops, execs commands, or deploys. Do not add write, exec, or deployment endpoints here, and never mutate shop files. Deployment is the job of a separate control agent with its own authentication. A proposed change that adds a write capability to this project is a bug — route it to the control agent instead. See `_ai/technical_decisions/ADR__260912-1__read-only-monitoring-agent.md`.
+
 ## Commands
 
 ```sh

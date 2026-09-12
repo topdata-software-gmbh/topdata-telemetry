@@ -4,6 +4,22 @@ A self-sufficient Go-based monitoring agent for Shopware 6 instances. It replace
 the previous PHP-based `node-agent` and runs as a single binary with zero external
 runtime dependencies.
 
+## Design invariant: strictly read-only
+
+This agent is the **telemetry plane** and is **strictly read-only by design**.
+It observes and reports; it never writes to shop directories, never executes
+remote commands, and exposes no `exec`, deploy, or write endpoints. Deployment
+and orchestration belong to a separate **control agent** with its own, stronger
+authentication — never to this process.
+
+This split is deliberate: telemetry must survive a failed deployment. If the
+agent that deploys is also the agent that monitors, a crash or I/O lockup during
+a release blinds you exactly when you need visibility most. Keeping monitoring
+read-only also keeps its credential low-risk — Basic Auth on this agent can
+never be turned into fleet-wide remote code execution. Any change that adds a
+write, exec, or deployment capability here is an architectural bug: it belongs
+in the control agent instead.
+
 ## Architecture
 
 - **Discovery**: periodically scans `shops.root` for active Shopware 6 shops
