@@ -13,7 +13,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"github.com/topdata/node-agent/internal/monitor"
+	"github.com/topdata-software-gmbh/topdata-telemetry/internal/monitor"
 )
 
 var startTime = time.Now()
@@ -49,10 +49,10 @@ var serveCmd = &cobra.Command{
 	Short: "Start the metrics exporter",
 	Run: func(cmd *cobra.Command, args []string) {
 		if !viper.IsSet("auth.username") || !viper.IsSet("auth.password") {
-			log.Fatal("basic auth credentials not configured: set TOPDATA_AGENT_AUTH_USERNAME and TOPDATA_AGENT_AUTH_PASSWORD")
+			log.Fatal("basic auth credentials not configured: set TOPDATA_TELEMETRY_AUTH_USERNAME and TOPDATA_TELEMETRY_AUTH_PASSWORD")
 		}
 
-		log.Printf("topdata-agent %s starting", version)
+		log.Printf("topdata-telemetry %s starting", version)
 		log.Printf("shops root: %s", viper.GetString("shops.root"))
 
 		discoveryInterval := viper.GetDuration("discovery.interval")
@@ -81,7 +81,7 @@ var serveCmd = &cobra.Command{
 		}
 		stateFile := viper.GetString("disk.state_file")
 		if stateFile == "" {
-			stateFile = "/var/lib/topdata-agent/disk-state.json"
+			stateFile = "/var/lib/topdata-telemetry/disk-state.json"
 		}
 
 		yieldEvery := viper.GetInt("disk.scan_yield_every")
@@ -365,13 +365,13 @@ func init() {
 	viper.SetDefault("disk.scan_concurrency", 1)
 	viper.SetDefault("disk.exclude", []string{"var/cache"})
 	viper.SetDefault("disk.growth_max_depth", 3)
-	viper.SetDefault("disk.state_file", "/var/lib/topdata-agent/disk-state.json")
+	viper.SetDefault("disk.state_file", "/var/lib/topdata-telemetry/disk-state.json")
 	viper.SetDefault("disk.scan_yield_every", 0)
 	viper.SetDefault("disk.scan_yield_sleep", 0)
 	viper.SetDefault("disk.state_save_interval", 30*time.Second)
 	viper.SetDefault("disk.scan_defer_on_state", true)
 	viper.SetDefault("discovery.interval", 15*time.Minute)
-	viper.SetEnvPrefix("TOPDATA_AGENT")
+	viper.SetEnvPrefix("TOPDATA_TELEMETRY")
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 	viper.AutomaticEnv()
 

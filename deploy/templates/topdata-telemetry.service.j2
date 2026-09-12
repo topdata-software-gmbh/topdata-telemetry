@@ -1,11 +1,11 @@
 [Unit]
-Description=Topdata Go Node Agent (Shopware 6 metrics exporter)
+Description=Topdata Telemetry (read-only Shopware 6 fleet monitoring)
 After=network.target
 
 [Service]
 Type=simple
-EnvironmentFile=/etc/topdata-agent.env
-ExecStart=/usr/local/bin/topdata-agent serve
+EnvironmentFile=/etc/topdata-telemetry.env
+ExecStart=/usr/local/bin/topdata-telemetry serve
 Restart=on-failure
 RestartSec=5
 # Bound the agent's disk I/O so a full directory walk can never saturate the

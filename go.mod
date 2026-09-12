@@ -1,4 +1,4 @@
-module github.com/topdata/node-agent
+module github.com/topdata-software-gmbh/topdata-telemetry
 
 go 1.21
 

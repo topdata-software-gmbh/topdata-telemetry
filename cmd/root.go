@@ -10,8 +10,8 @@ import (
 var version = "dev"
 
 var rootCmd = &cobra.Command{
-	Use:     "topdata-agent",
-	Short:   "Topdata Node Agent for Shopware Monitoring",
+	Use:     "topdata-telemetry",
+	Short:   "Read-only Shopware 6 fleet telemetry agent",
 	Version: version,
 }
 

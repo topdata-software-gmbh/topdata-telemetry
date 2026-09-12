@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/topdata/node-agent/internal/discovery"
+	"github.com/topdata-software-gmbh/topdata-telemetry/internal/discovery"
 )
 
 // shopHandle bundles the per-shop lifecycle: cancel stops both the disk scanner

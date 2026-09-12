@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# topdata-agent deploy script.
+# topdata-telemetry deploy script.
 #
 # Cross-compiles the agent for linux/arm64 + linux/amd64 and deploys the
 # matching binary to all hosts in deploy/hosts.ini via ansible-playbook.
@@ -56,19 +56,19 @@ cd "$(dirname "$0")/.."
 # `v1.2.0-3-gabc123` between tags — so every build reports a meaningful,
 # traceable version regardless of whether a release tag exists.
 GIT_VERSION="$(git describe --tags --always 2>/dev/null || echo dev)"
-BUILD_LDFLAGS="-s -w -X github.com/topdata/node-agent/cmd.version=${GIT_VERSION}"
+BUILD_LDFLAGS="-s -w -X github.com/topdata-software-gmbh/topdata-telemetry/cmd.version=${GIT_VERSION}"
 
 if [ "$DEPLOY_ONLY" -eq 0 ]; then
-    echo "==> Cross-compiling topdata-agent binaries"
+    echo "==> Cross-compiling topdata-telemetry binaries"
     echo "    go:       $(go version)"
     echo "    version:  ${GIT_VERSION}"
     echo "    module:   $(head -1 go.mod)"
-    echo "    building: deploy/bin/topdata-agent-arm64 (linux/arm64)"
-    GOOS=linux GOARCH=arm64 go build -ldflags "${BUILD_LDFLAGS}" -o deploy/bin/topdata-agent-arm64 .
-    echo "    building: deploy/bin/topdata-agent-amd64 (linux/amd64)"
-    GOOS=linux GOARCH=amd64 go build -ldflags "${BUILD_LDFLAGS}" -o deploy/bin/topdata-agent-amd64 .
+    echo "    building: deploy/bin/topdata-telemetry-arm64 (linux/arm64)"
+    GOOS=linux GOARCH=arm64 go build -ldflags "${BUILD_LDFLAGS}" -o deploy/bin/topdata-telemetry-arm64 .
+    echo "    building: deploy/bin/topdata-telemetry-amd64 (linux/amd64)"
+    GOOS=linux GOARCH=amd64 go build -ldflags "${BUILD_LDFLAGS}" -o deploy/bin/topdata-telemetry-amd64 .
     echo "    done. built artifacts:"
-    ls -l deploy/bin/topdata-agent-arm64 deploy/bin/topdata-agent-amd64
+    ls -l deploy/bin/topdata-telemetry-arm64 deploy/bin/topdata-telemetry-amd64
 fi
 
 if [ "$BUILD_ONLY" -eq 0 ]; then
@@ -81,15 +81,15 @@ if [ "$BUILD_ONLY" -eq 0 ]; then
 
     ansible-playbook -i deploy/hosts.ini deploy/playbook-deploy.yaml --ask-vault-pass "${ANSIBLE_ARGS[@]}"
 
-    echo "Deployed topdata-agent to all hosts in deploy/hosts.ini."
+    echo "Deployed topdata-telemetry to all hosts in deploy/hosts.ini."
     echo
     echo "Scrape targets (credentials from deploy/vars/vault.yml):"
     awk '/^\[agent\]/{in_agent=1; next} /^\[/{in_agent=0} in_agent && /ansible_host=/{sub(/^.*ansible_host=/, ""); sub(/ .*$/, ""); print "  http://<user>:<pass>@" $0 ":9144/metrics"}' deploy/hosts.ini
     echo
-    echo "Prometheus scraper config (drop into config/scrapes/topdata-agent.yaml"
+    echo "Prometheus scraper config (drop into config/scrapes/topdata-telemetry.yaml"
     echo "next to config/prometheus.yaml, which already loads scrapes/*.yaml):"
     echo "scrape_configs:"
-    echo "    -   job_name: 'topdata-agent'"
+    echo "    -   job_name: 'topdata-telemetry'"
     echo "        scrape_interval: 30s"
     echo "        static_configs:"
     echo "            -   targets:"

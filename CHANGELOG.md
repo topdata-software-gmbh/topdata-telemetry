@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- **BREAKING (v2.0.0):** project renamed from `topdata-node-agent` / `topdata-agent` to `topdata-telemetry`. Env vars are now `TOPDATA_TELEMETRY_*`, metrics `topdata_telemetry_*`, binary + systemd unit + env file `topdata-telemetry` / `topdata-telemetry.service` / `/etc/topdata-telemetry.env`, and the persisted state file lives at `/var/lib/topdata-telemetry/disk-state.json`. The deploy playbook migrates the legacy unit and state file automatically; Prometheus scrape config, dashboards and alerts must be updated to the new metric names.
 - The disk scanner no longer triggers a full recursive walk of every shop at
   process startup on restarts: when persisted scan state already exists for a
   shop, its first scan after a restart is deferred to the shop's randomized phase.

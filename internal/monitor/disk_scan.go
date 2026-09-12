@@ -18,21 +18,21 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
-	"github.com/topdata/node-agent/internal/discovery"
+	"github.com/topdata-software-gmbh/topdata-telemetry/internal/discovery"
 )
 
 var diskUsage = promauto.NewGaugeVec(prometheus.GaugeOpts{
-	Name: "topdata_agent_shopware_shop_disk_usage_bytes",
+	Name: "topdata_telemetry_shopware_shop_disk_usage_bytes",
 	Help: "Disk usage of the shop directory in bytes (excluding configured dirs)",
 }, []string{"shop"})
 
 var scanDuration = promauto.NewGaugeVec(prometheus.GaugeOpts{
-	Name: "topdata_agent_disk_scan_last_duration_seconds",
+	Name: "topdata_telemetry_disk_scan_last_duration_seconds",
 	Help: "Duration of the most recent disk scan for a shop, in seconds.",
 }, []string{"shop"})
 
 var scanTotal = promauto.NewCounterVec(prometheus.CounterOpts{
-	Name: "topdata_agent_disk_scan_total",
+	Name: "topdata_telemetry_disk_scan_total",
 	Help: "Total number of disk scans performed per shop.",
 }, []string{"shop"})
 

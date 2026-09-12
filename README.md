@@ -1,8 +1,8 @@
-# topdata-node-agent
+# topdata-telemetry
 
-A self-sufficient Go-based monitoring agent for Shopware 6 instances. It replaces
-the previous PHP-based `node-agent` and runs as a single binary with zero external
-runtime dependencies.
+A self-sufficient Go-based monitoring agent for Shopware 6 instances (formerly
+`topdata-node-agent` / `topdata-agent`). It replaces the previous PHP-based
+`node-agent` and runs as a single binary with zero external runtime dependencies.
 
 ## Design invariant: strictly read-only
 
@@ -42,38 +42,38 @@ with the following defaults:
 
 | Env var | Default | Description |
 |---|---|---|
-| `TOPDATA_AGENT_SHOPS_ROOT` | `/srv/topdata-shops/prod-shops` | Root directory containing the shop folders |
-| `TOPDATA_AGENT_AUTH_USERNAME` | *(required)* | Basic Auth username for `/metrics` |
-| `TOPDATA_AGENT_AUTH_PASSWORD` | *(required)* | Basic Auth password for `/metrics` |
-| `TOPDATA_AGENT_LISTEN_ADDRESS` | `:9144` | Listen address of the metrics endpoint |
-| `TOPDATA_AGENT_DISCOVERY_INTERVAL` | `15m` | How often the agent re-scans `shops.root` for added/removed shops. Shops added later are monitored automatically; removed shops are stopped and their metric series deleted — no service restart required. |
-| `TOPDATA_AGENT_DISK_SCAN_INTERVAL` | `6h` | How often each shop's directory tree is walked to refresh disk usage / growth. |
-| `TOPDATA_AGENT_DISK_SCAN_CONCURRENCY` | `1` | Max simultaneous shop walks (semaphore). Keep at 1 on slow storage. |
-| `TOPDATA_AGENT_DISK_EXCLUDE` | `var/cache` | Comma-separated relative paths skipped from size + growth. |
-| `TOPDATA_AGENT_DISK_GROWTH_MAX_DEPTH` | `3` | Depth at which per-directory growth is tracked. |
-| `TOPDATA_AGENT_DISK_STATE_FILE` | `/var/lib/topdata-agent/disk-state.json` | Persists per-dir sizes + scan times for cross-restart growth. |
-| `TOPDATA_AGENT_DISK_SCAN_YIELD_EVERY` | `0` | Directories walked between scheduler yields (0 = off). Set e.g. `200` on slow storage. |
-| `TOPDATA_AGENT_DISK_SCAN_YIELD_SLEEP` | `0` | Sleep applied on each yield (e.g. `1ms`); caps walk I/O. Default off. |
-| `TOPDATA_AGENT_DISK_STATE_SAVE_INTERVAL` | `30s` | Minimum interval between state-file rewrites. |
-| `TOPDATA_AGENT_DISK_SCAN_DEFER_ON_STATE` | `true` | Skip the immediate startup scan when persisted state exists (prevents restart I/O bursts). |
+| `TOPDATA_TELEMETRY_SHOPS_ROOT` | `/srv/topdata-shops/prod-shops` | Root directory containing the shop folders |
+| `TOPDATA_TELEMETRY_AUTH_USERNAME` | *(required)* | Basic Auth username for `/metrics` |
+| `TOPDATA_TELEMETRY_AUTH_PASSWORD` | *(required)* | Basic Auth password for `/metrics` |
+| `TOPDATA_TELEMETRY_LISTEN_ADDRESS` | `:9144` | Listen address of the metrics endpoint |
+| `TOPDATA_TELEMETRY_DISCOVERY_INTERVAL` | `15m` | How often the agent re-scans `shops.root` for added/removed shops. Shops added later are monitored automatically; removed shops are stopped and their metric series deleted — no service restart required. |
+| `TOPDATA_TELEMETRY_DISK_SCAN_INTERVAL` | `6h` | How often each shop's directory tree is walked to refresh disk usage / growth. |
+| `TOPDATA_TELEMETRY_DISK_SCAN_CONCURRENCY` | `1` | Max simultaneous shop walks (semaphore). Keep at 1 on slow storage. |
+| `TOPDATA_TELEMETRY_DISK_EXCLUDE` | `var/cache` | Comma-separated relative paths skipped from size + growth. |
+| `TOPDATA_TELEMETRY_DISK_GROWTH_MAX_DEPTH` | `3` | Depth at which per-directory growth is tracked. |
+| `TOPDATA_TELEMETRY_DISK_STATE_FILE` | `/var/lib/topdata-telemetry/disk-state.json` | Persists per-dir sizes + scan times for cross-restart growth. |
+| `TOPDATA_TELEMETRY_DISK_SCAN_YIELD_EVERY` | `0` | Directories walked between scheduler yields (0 = off). Set e.g. `200` on slow storage. |
+| `TOPDATA_TELEMETRY_DISK_SCAN_YIELD_SLEEP` | `0` | Sleep applied on each yield (e.g. `1ms`); caps walk I/O. Default off. |
+| `TOPDATA_TELEMETRY_DISK_STATE_SAVE_INTERVAL` | `30s` | Minimum interval between state-file rewrites. |
+| `TOPDATA_TELEMETRY_DISK_SCAN_DEFER_ON_STATE` | `true` | Skip the immediate startup scan when persisted state exists (prevents restart I/O bursts). |
 
-> `TOPDATA_AGENT_AUTH_USERNAME` and `TOPDATA_AGENT_AUTH_PASSWORD` are required —
+> `TOPDATA_TELEMETRY_AUTH_USERNAME` and `TOPDATA_TELEMETRY_AUTH_PASSWORD` are required —
 > the agent refuses to start without them. Set them via the systemd
 > `EnvironmentFile` (deployed by the Ansible playbook from the vault).
 
 ## Metrics
 
 The agent registers the following metrics (via `prometheus/client_golang`, on the
-global default registry). All metrics except `topdata_agent_shops_total` carry a
+global default registry). All metrics except `topdata_telemetry_shops_total` carry a
 `shop` label holding the shop's directory name under `shops.root`.
 
 | Metric | Type | Labels | Description |
 |---|---|---|---|
-| `topdata_agent_shopware_critical_errors_total` | Counter | `shop` | Total number of critical errors found in the shop's `vol/www/var/log/prod-YYYY-MM-DD.log`. A line counts when it matches `.CRITICAL:` or `[critical]` (case-insensitive). Monotonic — it only increases for the lifetime of the process. |
-| `topdata_agent_shopware_shop_disk_usage_bytes` | Gauge | `shop` | Disk usage of the shop directory in bytes, measured by a pure-Go recursive walk (refreshed every `disk.scan_interval`, default 6h; excludes `var/cache`). |
-| `topdata_agent_shops_total` | Gauge | — | Total number of Shopware shops currently monitored by the agent. |
-| `topdata_agent_disk_scan_last_duration_seconds` | Gauge | `shop` | Duration of the most recent disk scan for a shop, in seconds. |
-| `topdata_agent_disk_scan_total` | Counter | `shop` | Total number of disk scans performed per shop. |
+| `topdata_telemetry_shopware_critical_errors_total` | Counter | `shop` | Total number of critical errors found in the shop's `vol/www/var/log/prod-YYYY-MM-DD.log`. A line counts when it matches `.CRITICAL:` or `[critical]` (case-insensitive). Monotonic — it only increases for the lifetime of the process. |
+| `topdata_telemetry_shopware_shop_disk_usage_bytes` | Gauge | `shop` | Disk usage of the shop directory in bytes, measured by a pure-Go recursive walk (refreshed every `disk.scan_interval`, default 6h; excludes `var/cache`). |
+| `topdata_telemetry_shops_total` | Gauge | — | Total number of Shopware shops currently monitored by the agent. |
+| `topdata_telemetry_disk_scan_last_duration_seconds` | Gauge | `shop` | Duration of the most recent disk scan for a shop, in seconds. |
+| `topdata_telemetry_disk_scan_total` | Counter | `shop` | Total number of disk scans performed per shop. |
 
 > The `shop` label value is the directory name discovered under `shops.root`
 > (e.g. `muster-shop`), not the full path.
@@ -99,7 +99,7 @@ Example `prometheus.yml` scrape config:
 
 ```yaml
 scrape_configs:
-  - job_name: topdata-agent
+  - job_name: topdata-telemetry
     metrics_path: /metrics
     static_configs:
       - targets:
@@ -168,13 +168,13 @@ ansible-playbook -i deploy/hosts.ini deploy/playbook-deploy.yaml \
 ## Build & Run
 
 ```sh
-go build -o bin/topdata-agent .
-./bin/topdata-agent serve
+go build -o bin/topdata-telemetry .
+./bin/topdata-telemetry serve
 ```
 
 ## systemd Service
 
-`/etc/systemd/system/topdata-agent.service`:
+`/etc/systemd/system/topdata-telemetry.service`:
 
 ```ini
 [Unit]
@@ -184,8 +184,8 @@ After=network.target
 [Service]
 Type=simple
 User=root
-EnvironmentFile=/etc/topdata-agent.env
-ExecStart=/usr/local/bin/topdata-agent serve
+EnvironmentFile=/etc/topdata-telemetry.env
+ExecStart=/usr/local/bin/topdata-telemetry serve
 Restart=on-failure
 RestartSec=5
 # Bound the agent's disk I/O so a full directory walk can never saturate the
@@ -199,7 +199,7 @@ WantedBy=multi-user.target
 ```
 
 ```sh
-sudo cp bin/topdata-agent /usr/local/bin/topdata-agent
+sudo cp bin/topdata-telemetry /usr/local/bin/topdata-telemetry
 sudo systemctl daemon-reload
-sudo systemctl enable --now topdata-agent
+sudo systemctl enable --now topdata-telemetry
 ```

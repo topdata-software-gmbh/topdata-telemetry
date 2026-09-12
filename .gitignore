@@ -31,5 +31,5 @@ deploy/vars/vault.yml
 # Environment files
 *.env
 
-node-agent
+topdata-telemetry
 

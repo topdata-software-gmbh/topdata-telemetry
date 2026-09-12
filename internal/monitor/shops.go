@@ -6,6 +6,6 @@ import (
 )
 
 var shopsTotal = promauto.NewGauge(prometheus.GaugeOpts{
-	Name: "topdata_agent_shops_total",
+	Name: "topdata_telemetry_shops_total",
 	Help: "Total number of Shopware shops currently monitored by the agent",
 })

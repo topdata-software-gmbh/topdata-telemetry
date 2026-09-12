@@ -1,6 +1,6 @@
 package main
 
-import "github.com/topdata/node-agent/cmd"
+import "github.com/topdata-software-gmbh/topdata-telemetry/cmd"
 
 func main() {
 	cmd.Execute()
