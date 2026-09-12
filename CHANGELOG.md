@@ -49,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `/disk-eaters` now reports each directory's `SIZE` and `GROWTH/h` as a **residual**: the value minus its single biggest direct child (by size). Ancestors no longer echo their big children — they show only the unexplained remainder, and read `0` growth when all their growth is attributable to a child entry. The ranking is also deterministically stable on ties (growth → size, size → growth).
 
 ### Added
+- `/info` now reports the agent `name` (`topdata-telemetry`), so the read-only telemetry agent is identifiable independently of its version.
 - Disk-scan I/O throttling knobs (env `TOPDATA_AGENT_DISK_*`): `scan_yield_every`
   (directories between scheduler yields, default 0 = off), `scan_yield_sleep`
   (sleep per yield, e.g. `1ms`, default 0), `state_save_interval` (default 30s),

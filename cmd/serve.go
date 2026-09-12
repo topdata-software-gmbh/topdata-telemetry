@@ -52,7 +52,7 @@ var serveCmd = &cobra.Command{
 			log.Fatal("basic auth credentials not configured: set TOPDATA_TELEMETRY_AUTH_USERNAME and TOPDATA_TELEMETRY_AUTH_PASSWORD")
 		}
 
-		log.Printf("topdata-telemetry %s starting", version)
+		log.Printf("%s %s starting", appName, version)
 		log.Printf("shops root: %s", viper.GetString("shops.root"))
 
 		discoveryInterval := viper.GetDuration("discovery.interval")
@@ -143,6 +143,7 @@ func healthzHandler(w http.ResponseWriter, r *http.Request) {
 // and finally JSON.
 func infoHandler(w http.ResponseWriter, r *http.Request) {
 	data := struct {
+		Name          string           `json:"name"`
 		Version       string           `json:"version"`
 		UptimeSeconds float64          `json:"uptime_seconds"`
 		Uptime        string           `json:"uptime"`
@@ -153,6 +154,7 @@ func infoHandler(w http.ResponseWriter, r *http.Request) {
 		LastScan      map[string]int64 `json:"last_scan"`
 		LastDiscovery string           `json:"last_discovery"`
 	}{
+		Name:          appName,
 		Version:       version,
 		UptimeSeconds: time.Since(startTime).Seconds(),
 		Uptime:        humanDuration(time.Since(startTime)),
@@ -191,6 +193,7 @@ func infoHandler(w http.ResponseWriter, r *http.Request) {
 	switch format {
 	case "text":
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		fmt.Fprintf(w, "%-16s %s\n", "name", data.Name)
 		fmt.Fprintf(w, "%-16s %s\n", "version", data.Version)
 		fmt.Fprintf(w, "%-16s %s\n", "uptime", data.Uptime)
 		fmt.Fprintf(w, "%-16s %s\n", "started_at", utcStamp(startTime))
@@ -214,6 +217,7 @@ func infoHandler(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/markdown; charset=utf-8")
 		fmt.Fprintf(w, "| %s | %s |\n", "Field", "Value")
 		fmt.Fprintf(w, "| --- | --- |\n")
+		fmt.Fprintf(w, "| %s | %s |\n", "name", data.Name)
 		fmt.Fprintf(w, "| %s | %s |\n", "version", data.Version)
 		fmt.Fprintf(w, "| %s | %s |\n", "uptime", data.Uptime)
 		fmt.Fprintf(w, "| %s | %s |\n", "started_at", utcStamp(startTime))

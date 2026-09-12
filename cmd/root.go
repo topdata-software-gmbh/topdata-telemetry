@@ -7,10 +7,12 @@ import (
 	"github.com/spf13/cobra"
 )
 
+const appName = "topdata-telemetry"
+
 var version = "dev"
 
 var rootCmd = &cobra.Command{
-	Use:     "topdata-telemetry",
+	Use:     appName,
 	Short:   "Read-only Shopware 6 fleet telemetry agent",
 	Version: version,
 }
