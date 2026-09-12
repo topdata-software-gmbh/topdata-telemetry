@@ -4,8 +4,8 @@ date: 2026-08-20
 status: completed
 completedAt: 2026-08-20 21:55
 project: topdata-node-agent-v2
-sha256: db78984fd33753615308121d3353a953d5e3579f9456c15b8a5364f73ec74011
 id: 7a114d4f-a7de-470a-be81-3ff374fca076
+content_hash: e17c9be0f5cae2c3af331694fbe80cc7
 ---
 
 # Ansible Fleet Deployment of the Go Node Agent

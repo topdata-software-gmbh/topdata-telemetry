@@ -10,8 +10,8 @@ filesModified: 5
 filesDeleted: 0
 tags: [go, disk, io, prometheus, systemd, incident, monitoring]
 documentType: IMPLEMENTATION_REPORT
-sha256: 5d3116c67852f3e5b39a47ea3ad85c066e7c16cceb036b44f3529ed9c326021e
 id: 70e684cb-b0ab-4d46-b9cc-27a2ad559de9
+content_hash: abcab1e14f296795a79974024fd137ba
 ---
 
 # Implementation Report: Disk-scan I/O throttling

@@ -4,8 +4,8 @@ status: Accepted
 date: 2026-08-29
 deciders: Topdata Team
 tags: [golang, disk, io, systemd, incident, monitoring]
-sha256: 49a2fde5c5894ee98a41d31cfcfdcdfb3a9981b0a356f4bfd1936d04df814714
 id: 6f1c2a9b-3d4e-4f5a-8b6c-1a2b3c4d5e6f
+content_hash: d704ebfee48140fc402b1e2d576c01cf
 ---
 
 # Throttle disk-scan I/O to prevent agent-induced host outages

@@ -10,8 +10,8 @@ filesModified: 3
 filesDeleted: 0
 tags: [golang, prometheus, shopware, monitoring, cobra]
 documentType: IMPLEMENTATION_REPORT
-sha256: 419bffd8cb55c31cdb079e36648d7a1b4cf9f05893a8d1c8c04b72c1b9124bc1
 id: a8277a68-5694-4363-9359-594477db42b8
+content_hash: 5c72c0b81c205589691b501c5756a164
 ---
 
 ## Summary

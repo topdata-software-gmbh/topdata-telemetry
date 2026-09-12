@@ -10,8 +10,8 @@ tags: [go, disk, io, prometheus, incident, arm1, monitoring]
 estimatedComplexity: moderate
 documentRevision: 1
 documentType: IMPLEMENTATION_PLAN
-sha256: cf65196a613bab901f4ee00eadcf993b39852f15401f8de8923e97744577979a
 id: d3c3d6d7-1dd0-43f4-9f06-f8d3c325c05c
+content_hash: 3c2e53827ea6d1926a2c2974a818eec0
 ---
 
 # Throttle disk-scan I/O to prevent agent-induced host outages

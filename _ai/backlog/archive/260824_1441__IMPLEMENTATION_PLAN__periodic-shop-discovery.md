@@ -10,8 +10,8 @@ tags: [discovery, lifecycle, goroutines, metrics, config]
 estimatedComplexity: moderate
 documentRevision: 1
 documentType: IMPLEMENTATION_PLAN
-sha256: b13bf694770392617870648dd1c37e70a42a3ee63f63d9c9ba764fd3c06f2382
 id: 13537347-d70d-4103-a6ca-51af32f480de
+content_hash: b0ebdcef9429b706ac6b6088f1de065d
 ---
 
 # Implementation Plan: Periodic shop discovery

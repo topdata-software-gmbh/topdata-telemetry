@@ -10,8 +10,8 @@ tags: [golang, prometheus, shopware, monitoring, cobra]
 estimatedComplexity: moderate
 documentRevision: 1
 documentType: IMPLEMENTATION_PLAN
-sha256: 24901f3292e28c8cfd4242ed9f475d0d92f5c67ec89c21d614ee3604ff8aa054
 id: b0423b57-dd89-4fd2-9f60-cc0e4e90b453
+content_hash: 149bdc3ec2c8ec33ef344cb14d80d34e
 ---
 
 ## 1. Problem Description

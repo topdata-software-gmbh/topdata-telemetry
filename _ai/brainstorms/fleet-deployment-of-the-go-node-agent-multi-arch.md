@@ -30,7 +30,6 @@ open_questions:
     (sites.toml hosts, ip-mapping fleet, or a separate list)?
 projectId: topdata-node-agent-v2
 protocol_version: '1'
-sha256: db608dc55a9e61846701ad30ef57abebdc882e48f05a806b0f8ce26ea9f42c9c
 status: decided
 tags:
 - brainstorm
@@ -38,6 +37,7 @@ title: Fleet deployment of the Go node agent (multi-arch)
 topic: Fleet deployment of the Go node agent (multi-arch)
 updatedAt: '2026-08-20T19:46:48+00:00'
 workspaceId: ''
+content_hash: 7c4bc2478b050324790551a03c632be6
 ---
 
 # Fleet deployment of the Go node agent (multi-arch) — Brainstorm

@@ -10,8 +10,8 @@ tags: [golang, http-api, monitoring, observability]
 estimatedComplexity: simple
 documentRevision: 1
 documentType: IMPLEMENTATION_PLAN
-sha256: 4904710e5266f867e62c60e009e4e73ea3f34c7b364f140a4eb4df09e598b843
 id: 7631ec44-41d5-47b3-af84-86627255ed23
+content_hash: 3cdc530aefa66ad9671c3704ba10784a
 ---
 
 # Implementation Plan: `/critical-errors` endpoint

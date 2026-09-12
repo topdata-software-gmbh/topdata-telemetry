@@ -46,7 +46,6 @@ kind: brainstorm
 open_questions: []
 projectId: topdata-node-agent-v2
 protocol_version: '1'
-sha256: 7553a66cf2bdeb26b5ad93b63e20a1b69f2ad13de28925298de3524877124c0c
 status: decided
 tags:
 - brainstorm
@@ -54,6 +53,7 @@ title: latest-critical-errors endpoint
 topic: latest-critical-errors endpoint
 updatedAt: '2026-08-25T14:32:03+00:00'
 workspaceId: ''
+content_hash: 7b08b22695507970c2f0d8ca939f9b0e
 ---
 
 # latest-critical-errors endpoint — Brainstorm

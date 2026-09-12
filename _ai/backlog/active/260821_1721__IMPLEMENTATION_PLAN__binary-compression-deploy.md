@@ -2,8 +2,8 @@
 title: "Implementation Plan: Compress topdata-agent binary for faster fleet transfer"
 date: 2026-08-21
 status: active
-sha256: a7273a354a57b01a9d8f62701264530e5844fb04eca3650733f837f51d2199c6
 id: e092989c-7752-4f96-b9ea-57d91fc46916
+content_hash: 06d1da8b654328ce12be75d07d0f974b
 ---
 
 # Goal

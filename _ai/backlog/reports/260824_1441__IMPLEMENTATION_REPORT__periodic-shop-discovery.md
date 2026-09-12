@@ -14,8 +14,8 @@ filesModified:
   - AGENTS.md
 filesDeleted: []
 planFile: _ai/backlog/active/260824_1441__IMPLEMENTATION_PLAN__periodic-shop-discovery.md
-sha256: 98360e7c6b2603dcadb23cb07d7591b5114f03673c9f6fd294cc5a799d2a8f0c
 id: 89424e14-edbf-44c6-a63c-1b488d792aa9
+content_hash: ac324db7fbe36dcbe07091e4ef19db81
 ---
 
 # Implementation Report: Periodic shop discovery

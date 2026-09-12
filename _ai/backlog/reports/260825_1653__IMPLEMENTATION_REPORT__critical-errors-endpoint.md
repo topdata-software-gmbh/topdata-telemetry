@@ -11,8 +11,8 @@ filesModified: 4
 filesDeleted: 0
 tags: [golang, http-api, monitoring, observability]
 documentType: IMPLEMENTATION_REPORT
-sha256: 4d36a40ee6a1d75679c78f32e16c835213f07fbd65847de725d34accd1a46c8a
 id: 92bf9ac5-7133-475f-bfbe-f59eac7e9831
+content_hash: 71aeee9ec5d70a9004d8163c867b42c3
 ---
 
 # Implementation Report: `/critical-errors` endpoint
